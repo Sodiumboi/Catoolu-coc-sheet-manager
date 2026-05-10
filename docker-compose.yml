@@ -65,10 +65,10 @@ services:
     container_name: coc_frontend
     restart: unless-stopped
 
-    # Map host port 8080 → container port 80
-    # Access at http://192.168.1.42:8080
+    # Map host port 8088 → container port 80
+    # Access at http://192.168.1.42:8088
     ports:
-      - "8080:80"
+      - "8088:80"
 
     depends_on:
       - backend
