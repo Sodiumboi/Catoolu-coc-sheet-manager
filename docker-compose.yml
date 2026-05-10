@@ -13,7 +13,7 @@ services:
     environment:
       POSTGRES_DB:       coc_production
       POSTGRES_USER:     coc_user
-      POSTGRES_PASSWORD: 14521452
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
 
     volumes:
       # Named volume — data persists even if container is recreated
