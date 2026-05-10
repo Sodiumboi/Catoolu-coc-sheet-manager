@@ -6,3 +6,6 @@ dist/
 .DS_Store
 *.log
 Reminder.txt
+docker-compose.yml
+.gitignore
+Srec
