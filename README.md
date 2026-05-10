@@ -254,4 +254,4 @@ Powered by **Resend** for transactional email.
 
 ---
 
-*Ph'nglui mglw'nafh Cthulhu R'lyeh wgah'nagl fhtagn* 🐙
+*"Ph'nglui mglw'nafh Nat-One d20 wgah'nagl Advantage."* 🐙
