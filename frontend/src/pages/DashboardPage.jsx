@@ -264,28 +264,38 @@ export default function DashboardPage() {
              style={{ background: 'rgba(0,0,0,0.8)' }}>
           <div className="w-full max-w-sm rounded-lg p-6 border"
                style={{
-                 background: '#1a1208',
-                 borderColor: '#8b1a1a',
-                 boxShadow: '0 0 40px rgba(139,26,26,0.3)',
+                 background:  'var(--bg-card)',
+                 borderColor: 'var(--danger)',
+                 boxShadow:   '0 0 40px rgba(139,26,26,0.3)',
                }}>
-            <h3 className="font-bold text-lg mb-2" style={{ color: 'var(--text-primary)' }}>
+            <h3 className="font-bold text-lg mb-2"
+                style={{ color: 'var(--text-primary)', fontFamily: 'Georgia, serif' }}>
               Delete Investigator?
             </h3>
             <p className="text-sm mb-6" style={{ color: 'var(--text-muted)' }}>
-              Are you sure you want to delete <strong style={{ color: 'var(--text-primary)' }}>
-              {deleteConfirm.name}</strong>? This cannot be undone.
+              Are you sure you want to delete{' '}
+              <strong style={{ color: 'var(--text-primary)' }}>
+                {deleteConfirm.name}
+              </strong>? This cannot be undone.
             </p>
             <div className="flex gap-3">
               <button
                 onClick={() => setDeleteConfirm(null)}
-                className="flex-1 py-2 rounded text-sm font-medium"
-                style={{ background: 'var(--bg-page)', color: 'var(--text-muted)', border: '1px solid #3d3530' }}>
+                className="flex-1 py-2 rounded text-sm font-medium transition-all"
+                style={{
+                  background:  'var(--bg-input)',
+                  color:       'var(--text-muted)',
+                  border:      '1px solid var(--border-main)',
+                }}>
                 Cancel
               </button>
               <button
                 onClick={handleDelete}
-                className="flex-1 py-2 rounded text-sm font-medium"
-                style={{ background: '#8b1a1a', color: 'var(--text-primary)' }}>
+                className="flex-1 py-2 rounded text-sm font-medium transition-all"
+                style={{
+                  background: 'var(--danger)',
+                  color:      '#f5f0e8',
+                }}>
                 Delete Forever
               </button>
             </div>
