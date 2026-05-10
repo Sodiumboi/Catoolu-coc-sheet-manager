@@ -7,5 +7,6 @@ dist/
 *.log
 Reminder.txt
 docker-compose.yml
+docker-compose copy.yml
 .gitignore
 Srec
