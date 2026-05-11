@@ -1,29 +1,25 @@
 import { useState, useEffect, useRef } from 'react';
+import NavBar from '../components/NavBar';
+import Footer from '../components/Footer';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
 import CharacterCard from '../components/CharacterCard';
 import apiClient from '../api/client';
-import logo from '../assets/vault-logo.png';
+import { useAuth } from '../context/AuthContext';
 
 export default function DashboardPage() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-
+  const [search, setSearch] = useState('');
   const [characters, setCharacters]   = useState([]);
-  const [loading, setLoading]         = useState(true);
+  const [loading, setLoading]         = useState(true); // true = load on mount
   const [error, setError]             = useState('');
   const [importing, setImporting]     = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState(null); // { id, name }
   const fileInputRef = useRef(null);
 
-  // ── Fetch characters on mount ──────────────────────────
-  useEffect(() => {
-    fetchCharacters();
-  }, []);
-
   const fetchCharacters = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
       const response = await apiClient.get('/characters');
       setCharacters(response.data.characters);
     } catch (err) {
@@ -32,6 +28,11 @@ export default function DashboardPage() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const load = async () => { await fetchCharacters(); };
+    load();
+  }, []);
 
   // ── Import JSON file ───────────────────────────────────
   const handleFileImport = async (e) => {
@@ -89,106 +90,117 @@ export default function DashboardPage() {
     navigate('/login');
   };
 
+  // Filter characters by name or occupation
+  const filteredCharacters = characters.filter(c => {
+    if (!search.trim()) return true;
+    const q = search.toLowerCase();
+    return (
+      c.name?.toLowerCase().includes(q) ||
+      c.occupation?.toLowerCase().includes(q)
+    );
+  });
+
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg-page)' }}>
 
       {/* ── Top Navigation Bar ── */}
-      <nav className="border-b px-6 py-4 flex items-center justify-between sticky top-0 z-10"
-           style={{
-             background: 'var(--bg-nav)',
-             borderColor: 'var(--accent)33',
-             backdropFilter: 'blur(8px)',
-           }}>
-        <div className="flex items-center gap-3">
-          <img src={logo} alt="The Catoolu"
-               className="object-contain flex-shrink-0"
-               style={{ width: '32px', height: '32px' }} />
-          <div>
-            <h1 style={{ 
-              fontFamily: 'var(--font-serif)',
-              fontSize: '20px',
-              color: 'var(--color-primary-dark)',
-              margin: 0,
-              letterSpacing: '0.01em',
-            }}>
-              The Catoolu
-            </h1>
-            <p className="text-xs" style={{ color: 'var(--text-faint)' }}>
-              Welcome back, {user?.username}
-            </p>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-3">
-          {/* Import JSON Button */}
-          <button
-            onClick={() => fileInputRef.current?.click()}
-            disabled={importing}
-            className="px-4 py-2 rounded text-sm font-medium transition-all duration-150"
-            style={{
-              background: 'var(--accent)22',
-              color: 'var(--accent)',
-              border: '1px solid var(--accent)44',
-            }}
-            onMouseEnter={e => e.currentTarget.style.background = 'var(--accent)44'}
-            onMouseLeave={e => e.currentTarget.style.background = 'var(--accent)22'}
-          >
-            {importing ? '⏳ Importing...' : '📂 Import JSON'}
-          </button>
-
-          {/* Hidden file input — triggered by button above */}
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept=".json"
-            onChange={handleFileImport}
-            className="hidden"
-          />
-
-          {/* Profile button — add this between Import JSON and Sign Out */}
-          <button
-            onClick={() => navigate('/profile')}
-            className="px-4 py-2 rounded text-sm font-medium transition-all"
-            style={{
-              background: 'transparent',
-              color:      'var(--accent)',
-              border:     '1px solid var(--border-main)',
-            }}
-            onMouseEnter={e => e.currentTarget.style.background = 'var(--accent-bg)'}
-            onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
-            👤 Profile
-          </button>
-
-          {/* Logout */}
-          <button
-            onClick={handleLogout}
-            className="px-4 py-2 rounded text-sm font-medium transition-all duration-150"
-            style={{
-              background: 'var(--danger)22',
-              color: 'var(--danger)',
-              border: '1px solid var(--danger)44',
-            }}
-            onMouseEnter={e => e.currentTarget.style.background = 'var(--danger)44'}
-            onMouseLeave={e => e.currentTarget.style.background = 'var(--danger)22'}
-          >
-            Sign Out
-          </button>
-        </div>
-      </nav>
+      <NavBar
+        activeTab="investigators"
+        onImport={handleFileImport}
+        investigatorCount={characters.length}
+      />
 
       {/* ── Main Content ── */}
       <main className="max-w-6xl mx-auto px-6 py-8">
 
-        {/* Page title */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold" style={{ color: 'var(--text-primary)', fontFamily: 'Georgia, serif' }}>
-            Investigators
-          </h2>
-          <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>
-            {characters.length === 0
-              ? 'No investigators yet — import a JSON file to begin'
-              : `${characters.length} investigator${characters.length !== 1 ? 's' : ''} in the vault`}
-          </p>
+        {/* Page header + search */}
+        <div style={{ marginBottom: '24px' }}>
+          <div style={{
+            display:        'flex',
+            alignItems:     'flex-end',
+            justifyContent: 'space-between',
+            flexWrap:       'wrap',
+            gap:            '12px',
+            marginBottom:   '16px',
+          }}>
+            <div>
+              <h2 style={{
+                fontFamily: 'var(--font-serif)',
+                fontSize:   '28px',
+                color:      'var(--text-primary)',
+                margin:     '0 0 4px',
+                lineHeight: '1.2',
+              }}>
+                Investigators
+              </h2>
+              <p style={{
+                fontFamily: 'var(--font-sans)',
+                fontSize:   '13px',
+                color:      'var(--text-muted)',
+                margin:     0,
+              }}>
+                {characters.length === 0
+                  ? 'No investigators yet — import a JSON file to begin'
+                  : `${characters.length} investigator${characters.length !== 1 ? 's' : ''} in the vault`}
+              </p>
+            </div>
+
+            {/* Search input — only show when there are characters */}
+            {characters.length > 0 && (
+              <div style={{ position: 'relative' }}>
+                <span style={{
+                  position:      'absolute',
+                  left:          '10px',
+                  top:           '50%',
+                  transform:     'translateY(-50%)',
+                  fontSize:      '14px',
+                  pointerEvents: 'none',
+                }}>
+                  🔍
+                </span>
+                <input
+                  type="text"
+                  placeholder="Search investigators..."
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
+                  style={{
+                    fontFamily:   'var(--font-sans)',
+                    fontSize:     '13px',
+                    padding:      '7px 12px 7px 32px',
+                    borderRadius: '8px',
+                    border:       '1px solid var(--border-input)',
+                    background:   'var(--bg-card)',
+                    color:        'var(--text-primary)',
+                    width:        '220px',
+                    outline:      'none',
+                    transition:   'border-color 0.15s ease',
+                  }}
+                  onFocus={e => e.target.style.borderColor = 'var(--border-focus)'}
+                  onBlur={e  => e.target.style.borderColor = 'var(--border-input)'}
+                />
+                {search && (
+                  <button
+                    onClick={() => setSearch('')}
+                    style={{
+                      position:   'absolute',
+                      right:      '8px',
+                      top:        '50%',
+                      transform:  'translateY(-50%)',
+                      background: 'none',
+                      border:     'none',
+                      cursor:     'pointer',
+                      fontSize:   '12px',
+                      color:      'var(--text-muted)',
+                      padding:    '2px',
+                      lineHeight: 1,
+                    }}
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Error banner */}
@@ -230,10 +242,38 @@ export default function DashboardPage() {
             </button>
           </div>
 
+        /* No search results */
+        ) : filteredCharacters.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '60px 20px' }}>
+            <div style={{ fontSize: '40px', marginBottom: '12px', opacity: 0.3 }}>🔍</div>
+            <p style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize:   '15px',
+              color:      'var(--text-muted)',
+              margin:     '0 0 8px',
+            }}>
+              No investigators match "{search}"
+            </p>
+            <button
+              onClick={() => setSearch('')}
+              style={{
+                fontFamily:     'var(--font-sans)',
+                fontSize:       '13px',
+                color:          'var(--accent)',
+                background:     'none',
+                border:         'none',
+                cursor:         'pointer',
+                textDecoration: 'underline',
+              }}
+            >
+              Clear search
+            </button>
+          </div>
+
         /* Character grid */
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {characters.map(character => (
+            {filteredCharacters.map(character => (
               <CharacterCard
                 key={character.id}
                 character={character}
@@ -307,6 +347,8 @@ export default function DashboardPage() {
           </div>
         </div>
       )}
+
+      <Footer />
     </div>
   );
 }

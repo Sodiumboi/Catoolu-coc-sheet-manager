@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import apiClient from '../api/client';
+import NavBar from '../components/NavBar';
+import Footer from '../components/Footer';
 
 function Section({ title, children }) {
   return (
@@ -148,35 +150,7 @@ export default function ProfilePage() {
     <div className="min-h-screen" style={{ background: 'var(--bg-page)' }}>
 
       {/* Nav */}
-      <nav className="border-b px-6 py-4 flex items-center justify-between sticky top-0 z-10"
-           style={{
-             background:    'var(--bg-nav)',
-             borderColor:   'var(--border-main)',
-             backdropFilter: 'blur(8px)',
-           }}>
-        <div className="flex items-center gap-3">
-          <button onClick={() => navigate('/dashboard')}
-                  className="text-sm px-3 py-1.5 rounded transition-all border"
-                  style={{ color: 'var(--accent)', borderColor: 'var(--border-main)' }}
-                  onMouseEnter={e => e.currentTarget.style.background = 'var(--accent-bg)'}
-                  onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
-            ← Dashboard
-          </button>
-          <div>
-            <h1 className="font-bold text-sm uppercase tracking-widest"
-                style={{ color: 'var(--accent)', fontFamily: 'Georgia, serif' }}>
-              My Profile
-            </h1>
-          </div>
-        </div>
-        <button onClick={handleLogout}
-                className="px-4 py-2 rounded text-sm font-medium transition-all"
-                style={{ background: 'var(--danger)22', color: 'var(--danger)', border: '1px solid var(--danger)44' }}
-                onMouseEnter={e => e.currentTarget.style.background = 'var(--danger)44'}
-                onMouseLeave={e => e.currentTarget.style.background = 'var(--danger)22'}>
-          Sign Out
-        </button>
-      </nav>
+       <NavBar activeTab={null} />
 
       <div className="max-w-2xl mx-auto px-6 py-8">
 
@@ -270,6 +244,8 @@ export default function ProfilePage() {
         </Section>
 
       </div>
+      // bottom of return:
+      <Footer />
     </div>
   );
 }

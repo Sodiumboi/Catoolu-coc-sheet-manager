@@ -8,6 +8,9 @@ import CharacterEditorPage from './pages/CharacterEditorPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordPage  from './pages/ResetPasswordPage';
 import ProfilePage        from './pages/ProfilePage';
+import KeeperPage   from './pages/KeeperPage';
+import CampaignPage from './pages/CampaignPage';
+import InboxPage    from './pages/InboxPage';
 
 // ── Forces full remount when character ID changes ──────────
 function CharacterEditorWithKey() {
@@ -18,6 +21,13 @@ function CharacterEditorWithKey() {
     </ProtectedRoute>
   );
 }
+
+const PreferencesPage = () => (
+  <div style={{ padding: '40px', fontFamily: 'var(--font-sans)', color: 'var(--text-primary)' }}>
+    <h1 style={{ fontFamily: 'var(--font-serif)' }}>Preferences</h1>
+    <p style={{ color: 'var(--text-muted)' }}>Coming in Phase 4.</p>
+  </div>
+);
 
 // ── Main App ───────────────────────────────────────────────
 export default function App() {
@@ -43,6 +53,38 @@ export default function App() {
             {/* Fallbacks */}
             <Route path="/"  element={<Navigate to="/dashboard" replace />} />
             <Route path="*"  element={<Navigate to="/dashboard" replace />} />
+            <Route
+              path="/preferences"
+              element={
+                <ProtectedRoute>
+                  <PreferencesPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/keeper"
+              element={
+                <ProtectedRoute>
+                  <KeeperPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/campaign"
+              element={
+                <ProtectedRoute>
+                  <CampaignPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/inbox"
+              element={
+                <ProtectedRoute>
+                  <InboxPage />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </AuthProvider>
       </BrowserRouter>

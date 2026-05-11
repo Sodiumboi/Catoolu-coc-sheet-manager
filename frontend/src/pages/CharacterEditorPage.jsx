@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+
 import { useParams, useNavigate } from 'react-router-dom';
 import apiClient from '../api/client';
 import SkillGroup from '../components/SkillGroup';
@@ -9,6 +10,8 @@ import StatInput from '../components/StatInput';
 import WeaponRow from '../components/WeaponRow';
 import InvestigatorNotes from '../components/InvestigatorNotes';
 import logo from '../assets/vault-logo.png';
+import NavBar from '../components/NavBar';
+import Footer from '../components/Footer';
 import {
   recalculateAll,
   calcHalf,
@@ -141,7 +144,7 @@ function StatBox({ label, value, onChange, sublabel }) {
               fontSize: '1.2rem',
               textAlign: 'center',
               background: 'var(--bg-input)',
-              border:     '2px solid var(--border-input)',
+              border:     '2px solid var(--border-main)',
               color:      'var(--text-primary)',
               MozAppearance: 'textfield',
             }}
@@ -158,7 +161,7 @@ function StatBox({ label, value, onChange, sublabel }) {
                  width: '38px', height: '38px', fontSize: '0.95rem',
                  textAlign: 'center',
                  background: 'var(--bg-input)',
-                 border:     '1px solid var(--border-main)',
+                 border:     '1.5px solid var(--border-input)',
                  color:      'var(--text-muted)',
                }}>
             {half}
@@ -173,7 +176,7 @@ function StatBox({ label, value, onChange, sublabel }) {
                  width: '38px', height: '38px', fontSize: '0.95rem',
                  textAlign: 'center',
                  background: 'var(--bg-input)',
-                 border:     '1px solid var(--border-main)',
+                 border:     '1.5px solid var(--border-input)',
                  color:      'var(--text-muted)',
                }}>
             {fifth}
@@ -204,7 +207,7 @@ function TrackedStat({ label, maxVal, currentVal, onChangeCurrent,
                style={{
                  width: '44px', height: '44px', fontSize: '1.1rem',
                  background: 'var(--bg-input)',
-                 border:     '1px solid var(--border-main)',
+                 border:     '1.5px solid var(--border-input)',
                  color:      'var(--text-muted)',
                }}>
             {maxVal ?? '—'}
@@ -242,7 +245,7 @@ function TrackedStat({ label, maxVal, currentVal, onChangeCurrent,
                  style={{
                    width: '44px', height: '44px', fontSize: '1.1rem',
                    background: 'var(--bg-input)',
-                   border:     '1px solid var(--border-main)',
+                   border:     '1.5px solid var(--border-input)',
                    color:      'var(--text-muted)',
                  }}>
               {thirdVal ?? '—'}
@@ -566,75 +569,78 @@ export default function CharacterEditorPage() {
     <div className="min-h-screen" style={{ background: 'var(--bg-input)' }}>
 
       {/* ── Sticky Top Bar ── */}
-      <div className="sticky top-0 z-20 border-b px-6 py-3 flex items-center justify-between"
-           style={{
-             background:    'var(--bg-nav)',
-             borderColor:   'var(--border-main)',
-             backdropFilter: 'blur(8px)',
-           }}>
+      {/* ── NavBar (shared) ── */}
+      <NavBar activeTab="investigators" />
+
+      {/* ── Editor top bar (character-specific controls) ── */}
+      <div style={{
+        position:      'sticky',
+        top:           '56px',
+        zIndex:        40,
+        borderBottom:  '1px solid var(--border-main)',
+        padding:       '8px 24px',
+        display:       'flex',
+        alignItems:    'center',
+        justifyContent:'space-between',
+        background:    'var(--bg-nav)',
+        backdropFilter:'blur(8px)',
+      }}>
+        {/* Left: back button + character name */}
         <div className="flex items-center gap-3">
           <button onClick={() => navigate('/dashboard')}
-                  className="text-sm px-3 py-1.5 rounded transition-all"
-                  style={{ color: 'var(--accent)', border: '1px solid var(--accent)33' }}
+                  style={{
+                    fontSize:    '13px',
+                    padding:     '5px 12px',
+                    borderRadius:'7px',
+                    border:      '1px solid var(--border-main)',
+                    background:  'transparent',
+                    color:       'var(--accent)',
+                    cursor:      'pointer',
+                  }}
                   onMouseEnter={e => e.currentTarget.style.background = 'var(--accent-bg)'}
                   onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
             ← Dashboard
           </button>
           <div>
-            <h1 className="font-bold" style={{ color: 'var(--text-primary)', fontFamily: 'var(--font-serif)' }}>
+            <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '16px', color: 'var(--text-primary)', margin: 0 }}>
               {details.Name || 'Investigator'}
             </h1>
-            <p className="text-xs" style={{ color: 'var(--accent)' }}>
+            <p style={{ fontSize: '11px', color: 'var(--accent)', margin: 0 }}>
               {details.Occupation} · {inv?.Header?.GameType}
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-3 flex-wrap justify-end">
-          {error && <span className="text-xs" style={{ color: 'var(--danger)' }}>⚠ {error}</span>}
-          {saved && <span className="text-xs" style={{ color: 'var(--success)' }}>✓ Saved!</span>}
 
-          {/* Skill size: three A buttons */}
-          <div className="flex rounded overflow-hidden border"
-               style={{ borderColor: 'var(--border-main)' }}>
-            {[
-              { key: 'sm',   label: 'A', fs: '0.7rem' },
-              { key: 'base', label: 'A', fs: '0.9rem' },
-              { key: 'lg',   label: 'A', fs: '1.1rem' },
-            ].map(({ key, label, fs }) => (
-              <button key={key} onClick={() => setSkillSize(key)}
-                      className="px-2 py-1 font-bold transition-all"
-                      style={{
-                        fontSize:   fs,
-                        background: skillSize === key ? 'var(--accent)' : 'transparent',
-                        color:      skillSize === key ? 'var(--bg-page)' : 'var(--accent)',
-                      }}>
-                {label}
-              </button>
-            ))}
-          </div>
-
-          {/* Theme toggle */}
-          <button onClick={toggleTheme}
-                  className="px-3 py-1.5 rounded text-sm transition-all border"
-                  style={{ borderColor: 'var(--border-main)', color: 'var(--accent)', background: 'transparent' }}
-                  onMouseEnter={e => e.currentTarget.style.background = 'var(--accent-bg)'}
-                  onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
-            {theme === 'dark' ? '☀ Parchment' : '🌑 Dark'}
-          </button>
+        {/* Right: status + export + save */}
+        <div className="flex items-center gap-3">
+          {error && <span style={{ fontSize: '12px', color: 'var(--danger)' }}>⚠ {error}</span>}
+          {saved && <span style={{ fontSize: '12px', color: 'var(--success)' }}>✓ Saved!</span>}
 
           <button onClick={handleExport}
-                  className="px-4 py-2 rounded text-sm font-medium transition-all"
-                  style={{ background: '#1a3a1a', color: 'var(--success)', border: '1px solid var(--success)33' }}
-                  onMouseEnter={e => e.currentTarget.style.opacity = '0.8'}
-                  onMouseLeave={e => e.currentTarget.style.opacity = '1'}>
+                  style={{
+                    padding:      '6px 14px',
+                    borderRadius: '8px',
+                    fontSize:     '13px',
+                    border:       '1px solid var(--success)',
+                    background:   'transparent',
+                    color:        'var(--success)',
+                    cursor:       'pointer',
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.background = 'var(--accent-bg)'}
+                  onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
             ↓ Export JSON
           </button>
+
           <button onClick={handleSave} disabled={saving}
-                  className="px-4 py-2 rounded text-sm font-bold transition-all"
                   style={{
-                    background: saving ? 'var(--text-muted)' : 'var(--accent)',
-                    color:      'var(--bg-page)',
-                    cursor:     saving ? 'not-allowed' : 'pointer',
+                    padding:      '6px 14px',
+                    borderRadius: '8px',
+                    fontSize:     '13px',
+                    fontWeight:   '500',
+                    border:       'none',
+                    background:   saving ? 'var(--text-muted)' : 'var(--accent)',
+                    color:        '#ffffff',
+                    cursor:       saving ? 'not-allowed' : 'pointer',
                   }}>
             {saving ? 'Saving...' : '💾 Save'}
           </button>
@@ -882,7 +888,7 @@ export default function CharacterEditorPage() {
                     style={{
                       background: showPresets ? 'var(--accent)' : 'var(--accent-bg)',
                       color:      showPresets ? 'var(--bg-page)' : 'var(--accent)',
-                      border:     '1px solid var(--border-main)',
+                      border:     '1.5px solid var(--border-input)',
                     }}>
               📋 {showPresets ? 'Hide Presets' : 'Add from Preset List'}
             </button>
@@ -1010,7 +1016,7 @@ export default function CharacterEditorPage() {
                               style={{
                                 background: 'var(--accent-bg)',
                                 color:      'var(--accent)',
-                                border:     '1px solid var(--border-main)',
+                                border:     '1.5px solid var(--border-input)',
                                 fontSize:   '10px',
                               }}
                               onMouseEnter={e => e.currentTarget.style.background = 'var(--accent-hover)'}
@@ -1133,6 +1139,7 @@ export default function CharacterEditorPage() {
         </div>
 
       </div>
+      <Footer />
     </div>
   );
 }
