@@ -157,22 +157,6 @@ The app will be available at **http://your-server-ip:8088**
 | `RESEND_API_KEY` | Your Resend API key |
 | `FRONTEND_URL` | Your server's URL — used in password reset emails |
 
-### Useful Commands
-
-```bash
-# View logs
-docker compose logs -f
-
-# Restart after code changes
-docker compose up -d --build
-
-# Stop everything (data preserved)
-docker compose down
-
-# Shell into the database
-docker compose exec postgres psql -U coc_user -d coc_production
-```
-
 ---
 
 ## 📐 CoC 7e Calculation Reference
