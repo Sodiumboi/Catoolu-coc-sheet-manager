@@ -4,7 +4,7 @@ const ThemeContext = createContext(null);
 
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(
-    () => localStorage.getItem('coc_theme') || 'dark'
+    () => localStorage.getItem('coc_theme') || 'light'
   );
   const [skillSize, setSkillSizeState] = useState(
     () => localStorage.getItem('coc_skill_size') || 'sm'
@@ -18,7 +18,7 @@ export function ThemeProvider({ children }) {
   }, [theme]);
 
   const toggleTheme = () =>
-    setTheme(t => (t === 'dark' ? 'parchment' : 'dark'));
+    setTheme(t => (t === 'dark' ? 'light' : 'dark'));
 
   const setSkillSize = (size) => {
     setSkillSizeState(size);

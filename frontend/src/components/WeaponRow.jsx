@@ -7,8 +7,8 @@ export default function WeaponRow({ weapon, index, onChange, onDelete }) {
   };
 
   return (
-    <tr className="border-b" style={{ borderColor: '#b8860b11' }}
-        onMouseEnter={e => e.currentTarget.style.background = '#b8860b08'}
+    <tr className="border-b" style={{ borderColor: 'var(--accent)11' }}
+        onMouseEnter={e => e.currentTarget.style.background = 'var(--accent)08'}
         onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
 
       <td className="py-1 pl-2">
@@ -18,7 +18,7 @@ export default function WeaponRow({ weapon, index, onChange, onDelete }) {
         <WeaponCell value={weapon.skillname} onChange={v => update('skillname', v)} />
       </td>
       <td className="py-1 text-center">
-        <WeaponCell value={weapon.regular}   onChange={v => update('regular', v)}   center color="#4ade80" />
+        <WeaponCell value={weapon.regular}   onChange={v => update('regular', v)}   center color="var(--success)" />
       </td>
       <td className="py-1 text-center">
         <WeaponCell value={weapon.hard}      onChange={v => update('hard', v)}      center color="#60a5fa" />
@@ -41,8 +41,8 @@ export default function WeaponRow({ weapon, index, onChange, onDelete }) {
         <button
           onClick={() => onDelete(index)}
           className="text-xs px-1.5 py-0.5 rounded transition-all"
-          style={{ color: 'var(--danger)', border: '1px solid #ff6b6b33' }}
-          onMouseEnter={e => e.currentTarget.style.background = '#ff6b6b22'}
+          style={{ color: 'var(--danger)', border: '1px solid var(--danger)33' }}
+          onMouseEnter={e => e.currentTarget.style.background = 'var(--danger)22'}
           onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
           title="Delete weapon">
           ✕
@@ -63,7 +63,7 @@ function WeaponCell({ value, onChange, wide, center, color }) {
       style={{
         width:      wide ? '120px' : center ? '52px' : '72px',
         background: 'var(--bg-input)',
-        border:     '1px solid #b8860b22',
+        border:     '1px solid var(--accent)22',
         color:      color || 'var(--text-primary)',
         textAlign:  center ? 'center' : 'left',
       }}

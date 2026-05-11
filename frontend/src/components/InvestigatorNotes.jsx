@@ -8,8 +8,8 @@ const STORAGE_KEY      = 'coc_note_colors';
 function loadSavedColors() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : ['#cc2200', '#1a6b20', '#1a3a8b', '#b8860b'];
-  } catch { return ['#cc2200', '#1a6b20', '#1a3a8b', '#b8860b']; }
+    return raw ? JSON.parse(raw) : ['var(--danger)', '#1a6b20', '#1a3a8b', 'var(--accent)'];
+  } catch { return ['var(--danger)', '#1a6b20', '#1a3a8b', 'var(--accent)']; }
 }
 function persistColors(colors) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(colors));
@@ -55,7 +55,7 @@ export default function InvestigatorNotes({ characterId, initialNotes, onSave })
   const [saved,        setSaved]        = useState(false);
   const [error,        setError]        = useState('');
   const [savedColors,  setSavedColors]  = useState(loadSavedColors);
-  const [pickerColor,  setPickerColor]  = useState('#cc2200');
+  const [pickerColor,  setPickerColor]  = useState('var(--danger)');
   const [showSwatches, setShowSwatches] = useState(false);
 
   // Populate editor on load

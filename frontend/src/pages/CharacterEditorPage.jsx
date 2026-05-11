@@ -48,7 +48,7 @@ function BackstoryField({ label, value, onChange }) {
         className="w-full px-3 py-2 rounded text-sm outline-none resize-y"
         style={{
           background: 'var(--bg-input)',
-          border:     '1px solid #b8860b33',
+          border:     '1px solid var(--accent)33',
           color:      'var(--text-primary)',
           lineHeight: '1.6',
         }}
@@ -74,7 +74,7 @@ function DetailInput({ label, value, onChange }) {
         className="w-full px-3 py-2 rounded text-sm outline-none"
         style={{
           background: 'var(--bg-input)',
-          border:     '1px solid #b8860b33',
+          border:     '1px solid var(--accent)33',
           color:      'var(--text-primary)',
         }}
         onFocus={e => e.target.style.borderColor = 'var(--accent)'}
@@ -92,7 +92,7 @@ function DerivedStat({ label, value }) {
         {label}
       </div>
       <div className="text-lg font-bold py-2 rounded"
-           style={{ background: 'var(--bg-input)', color: 'var(--text-primary)', border: '1px solid #b8860b22' }}>
+           style={{ background: 'var(--bg-input)', color: 'var(--text-primary)', border: '1px solid var(--accent)22' }}>
         {value ?? '—'}
       </div>
     </div>
@@ -575,13 +575,13 @@ export default function CharacterEditorPage() {
         <div className="flex items-center gap-3">
           <button onClick={() => navigate('/dashboard')}
                   className="text-sm px-3 py-1.5 rounded transition-all"
-                  style={{ color: 'var(--accent)', border: '1px solid #b8860b33' }}
+                  style={{ color: 'var(--accent)', border: '1px solid var(--accent)33' }}
                   onMouseEnter={e => e.currentTarget.style.background = 'var(--accent-bg)'}
                   onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
             ← Dashboard
           </button>
           <div>
-            <h1 className="font-bold" style={{ color: 'var(--text-primary)', fontFamily: 'Georgia, serif' }}>
+            <h1 className="font-bold" style={{ color: 'var(--text-primary)', fontFamily: 'var(--font-serif)' }}>
               {details.Name || 'Investigator'}
             </h1>
             <p className="text-xs" style={{ color: 'var(--accent)' }}>
@@ -624,7 +624,7 @@ export default function CharacterEditorPage() {
 
           <button onClick={handleExport}
                   className="px-4 py-2 rounded text-sm font-medium transition-all"
-                  style={{ background: '#1a3a1a', color: 'var(--success)', border: '1px solid #4ade8033' }}
+                  style={{ background: '#1a3a1a', color: 'var(--success)', border: '1px solid var(--success)33' }}
                   onMouseEnter={e => e.currentTarget.style.opacity = '0.8'}
                   onMouseLeave={e => e.currentTarget.style.opacity = '1'}>
             ↓ Export JSON
@@ -1055,7 +1055,7 @@ export default function CharacterEditorPage() {
                   className="flex-1 px-2 py-1 rounded text-sm outline-none"
                   style={{
                     background: 'var(--bg-input)',
-                    border:     '1px solid #b8860b22',
+                    border:     '1px solid var(--accent)22',
                     color:      'var(--text-primary)',
                   }}
                   onFocus={e => e.target.style.borderColor = 'var(--accent)'}
@@ -1064,8 +1064,8 @@ export default function CharacterEditorPage() {
                 <button
                   onClick={() => deletePossession(i)}
                   className="text-xs px-1.5 py-0.5 rounded flex-shrink-0 transition-all"
-                  style={{ color: 'var(--danger)', border: '1px solid #ff6b6b33' }}
-                  onMouseEnter={e => e.currentTarget.style.background = '#ff6b6b22'}
+                  style={{ color: 'var(--danger)', border: '1px solid var(--danger)33' }}
+                  onMouseEnter={e => e.currentTarget.style.background = 'var(--danger)22'}
                   onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
                   ✕
                 </button>
@@ -1077,7 +1077,7 @@ export default function CharacterEditorPage() {
           <button
             onClick={addPossession}
             className="px-4 py-2 rounded text-xs font-medium transition-all"
-            style={{ background: 'var(--accent-bg)', color: 'var(--accent)', border: '1px solid #b8860b44' }}
+            style={{ background: 'var(--accent-bg)', color: 'var(--accent)', border: '1px solid var(--accent)44' }}
             onMouseEnter={e => e.currentTarget.style.background = 'var(--border-main)'}
             onMouseLeave={e => e.currentTarget.style.background = 'var(--accent-bg)'}>
             + Add Item
@@ -1106,7 +1106,7 @@ export default function CharacterEditorPage() {
                   className="text-center px-3 py-2 rounded text-base font-bold outline-none"
                   style={{
                     background: 'var(--bg-input)',
-                    border:     '1px solid #b8860b33',
+                    border:     '1px solid var(--accent)33',
                     color:      'var(--success)',
                     width:      '140px',
                   }}
@@ -1122,7 +1122,7 @@ export default function CharacterEditorPage() {
         <div className="flex justify-end gap-3 mt-2 pb-8">
           <button onClick={handleExport}
                   className="px-6 py-3 rounded text-sm font-medium transition-all"
-                  style={{ background: '#1a3a1a', color: 'var(--success)', border: '1px solid #4ade8033' }}>
+                  style={{ background: '#1a3a1a', color: 'var(--success)', border: '1px solid var(--success)33' }}>
             ↓ Export JSON
           </button>
           <button onClick={handleSave} disabled={saving}
@@ -1162,7 +1162,7 @@ function ReadOnlyBadge({ label, value, color }) {
         {label}
       </div>
       <div className="text-lg font-bold px-4 py-2 rounded"
-           style={{ background: 'var(--bg-input)', color, border: '1px solid #b8860b33' }}>
+           style={{ background: 'var(--bg-input)', color, border: '1px solid var(--accent)33' }}>
         {value ?? '—'}
       </div>
     </div>

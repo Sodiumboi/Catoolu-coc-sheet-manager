@@ -96,7 +96,7 @@ export default function DashboardPage() {
       <nav className="border-b px-6 py-4 flex items-center justify-between sticky top-0 z-10"
            style={{
              background: 'var(--bg-nav)',
-             borderColor: '#b8860b33',
+             borderColor: 'var(--accent)33',
              backdropFilter: 'blur(8px)',
            }}>
         <div className="flex items-center gap-3">
@@ -104,8 +104,13 @@ export default function DashboardPage() {
                className="object-contain flex-shrink-0"
                style={{ width: '32px', height: '32px' }} />
           <div>
-            <h1 className="font-bold tracking-widest text-sm uppercase"
-                style={{ color: 'var(--accent)', letterSpacing: '0.15em' }}>
+            <h1 style={{ 
+              fontFamily: 'var(--font-serif)',
+              fontSize: '20px',
+              color: 'var(--color-primary-dark)',
+              margin: 0,
+              letterSpacing: '0.01em',
+            }}>
               The Catoolu
             </h1>
             <p className="text-xs" style={{ color: 'var(--text-faint)' }}>
@@ -121,12 +126,12 @@ export default function DashboardPage() {
             disabled={importing}
             className="px-4 py-2 rounded text-sm font-medium transition-all duration-150"
             style={{
-              background: '#b8860b22',
+              background: 'var(--accent)22',
               color: 'var(--accent)',
-              border: '1px solid #b8860b44',
+              border: '1px solid var(--accent)44',
             }}
-            onMouseEnter={e => e.currentTarget.style.background = '#b8860b44'}
-            onMouseLeave={e => e.currentTarget.style.background = '#b8860b22'}
+            onMouseEnter={e => e.currentTarget.style.background = 'var(--accent)44'}
+            onMouseLeave={e => e.currentTarget.style.background = 'var(--accent)22'}
           >
             {importing ? '⏳ Importing...' : '📂 Import JSON'}
           </button>
@@ -159,12 +164,12 @@ export default function DashboardPage() {
             onClick={handleLogout}
             className="px-4 py-2 rounded text-sm font-medium transition-all duration-150"
             style={{
-              background: '#8b1a1a22',
-              color: '#ff6b6b',
-              border: '1px solid #8b1a1a44',
+              background: 'var(--danger)22',
+              color: 'var(--danger)',
+              border: '1px solid var(--danger)44',
             }}
-            onMouseEnter={e => e.currentTarget.style.background = '#8b1a1a44'}
-            onMouseLeave={e => e.currentTarget.style.background = '#8b1a1a22'}
+            onMouseEnter={e => e.currentTarget.style.background = 'var(--danger)44'}
+            onMouseLeave={e => e.currentTarget.style.background = 'var(--danger)22'}
           >
             Sign Out
           </button>
@@ -189,9 +194,9 @@ export default function DashboardPage() {
         {/* Error banner */}
         {error && (
           <div className="mb-6 px-4 py-3 rounded text-sm flex items-center justify-between"
-               style={{ background: '#8b1a1a22', color: '#ff6b6b', border: '1px solid #8b1a1a' }}>
+               style={{ background: 'var(--danger)22', color: 'var(--danger)', border: '1px solid var(--danger)' }}>
             <span>⚠ {error}</span>
-            <button onClick={() => setError('')} style={{ color: '#ff6b6b', opacity: 0.7 }}>✕</button>
+            <button onClick={() => setError('')} style={{ color: 'var(--danger)', opacity: 0.7 }}>✕</button>
           </div>
         )}
 
@@ -218,8 +223,8 @@ export default function DashboardPage() {
               onClick={() => fileInputRef.current?.click()}
               className="px-6 py-3 rounded font-medium transition-all duration-150"
               style={{
-                background: '#b8860b',
-                color: '#0f0b07',
+                background: 'var(--accent)',
+                color: 'var(--bg-input)',
               }}>
               📂 Import Your First Character
             </button>
@@ -241,14 +246,14 @@ export default function DashboardPage() {
             <button
               onClick={() => fileInputRef.current?.click()}
               className="rounded-lg p-5 border-2 border-dashed flex flex-col items-center justify-center gap-3 min-h-48 transition-all duration-200"
-              style={{ borderColor: '#b8860b33', color: '#b8860b55' }}
+              style={{ borderColor: 'var(--accent)33', color: 'var(--accent)55' }}
               onMouseEnter={e => {
-                e.currentTarget.style.borderColor = '#b8860b';
-                e.currentTarget.style.color = '#b8860b';
+                e.currentTarget.style.borderColor = 'var(--accent)';
+                e.currentTarget.style.color = 'var(--accent)';
               }}
               onMouseLeave={e => {
-                e.currentTarget.style.borderColor = '#b8860b33';
-                e.currentTarget.style.color = '#b8860b55';
+                e.currentTarget.style.borderColor = 'var(--accent)33';
+                e.currentTarget.style.color = 'var(--accent)55';
               }}
             >
               <span className="text-3xl">+</span>
@@ -294,7 +299,7 @@ export default function DashboardPage() {
                 className="flex-1 py-2 rounded text-sm font-medium transition-all"
                 style={{
                   background: 'var(--danger)',
-                  color:      '#f5f0e8',
+                  color:      'var(--text-primary)',
                 }}>
                 Delete Forever
               </button>

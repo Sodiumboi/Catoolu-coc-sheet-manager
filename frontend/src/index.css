@@ -1,70 +1,189 @@
 @import "tailwindcss";
 
-/* ── Dark Theme (default) ─────────────────────────────── */
+/* ══════════════════════════════════════════════════════════
+   THE CATOOLU — v1.1 Dagon
+   Design System: CSS Custom Properties
+   All colours, fonts, and tokens live here.
+   Components read from these variables — never hardcode.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Light Theme (default) ─────────────────────────────── */
 :root,
+[data-theme="light"] {
+
+  /* Primary — Catoolu Green (works on parchment background) */
+  --color-primary:       #3B6D11;
+  --color-primary-dark:  #2D4A1E;
+  --color-primary-light: #EAF3DE;
+  --color-primary-mid:   #C0DD97;
+
+  /* Page backgrounds — parchment palette */
+  --bg-page:        #f0e8d8;
+  --bg-card:        rgba(255, 250, 240, 0.95);
+  --bg-nav:         rgba(240, 232, 216, 0.98);
+  --bg-input:       #fffdf8;
+  --bg-section-hd:  rgba(139, 90, 20, 0.06);
+
+  /* Borders — warm brown tints */
+  --border-main:    #8b5a1433;
+  --border-input:   #8b5a1455;
+  --border-focus:   #3B6D11;
+
+  /* Text — deep ink on parchment */
+  --text-primary:   #1a0f05;
+  --text-secondary: #4a3520;
+  --text-muted:     #6b5030;
+  --text-faint:     #a08060;
+
+  /* Accent — green on parchment */
+  --accent:         #3B6D11;
+  --accent-bg:      #EAF3DE;
+  --accent-hover:   #C0DD97;
+
+  /* Semantic */
+  --danger:         var(--danger);
+  --danger-bg:      #fceae8;
+  --success:        #3B6D11;
+  --warning:        #8b5a14;
+  --row-hover:      #8b5a140a;
+
+  /* Typography */
+  --font-serif:     'DM Serif Display', Georgia, 'Times New Roman', serif;
+  --font-sans:      'DM Sans', system-ui, -apple-system, sans-serif;
+
+  /* Shadows — warm parchment tints */
+  --shadow-card:    0 1px 3px rgba(139, 90, 20, 0.08), 0 4px 12px rgba(139, 90, 20, 0.06);
+  --shadow-nav:     0 1px 0 #8b5a1433;
+  --shadow-dropdown:0 8px 24px rgba(28, 18, 8, 0.14), 0 2px 6px rgba(28, 18, 8, 0.08);
+}
+
+/* ── Dark Theme ─────────────────────────────────────────── */
+/* Cool gray — NOT the old warm brown */
 [data-theme="dark"] {
-  --bg-page:       #0f0b07;
-  --bg-card:       rgba(26, 18, 8, 0.6);
-  --bg-input:      #0f0b07;
-  --bg-nav:        rgba(15, 11, 7, 0.97);
-  --bg-section-hd: rgba(184, 134, 11, 0.08);
-  --border-main:   #b8860b33;
-  --border-input:  #b8860b33;
-  --border-focus:  #b8860b;
-  --text-primary:  #f5f0e8;
-  --text-secondary:#9ca3af;
-  --text-muted:    #6b7280;
-  --text-faint:    #3d3530;
-  --accent:        #b8860b;
-  --accent-hover:  #b8860b44;
-  --accent-bg:     #b8860b22;
-  --danger:        #ff6b6b;
-  --success:       #4ade80;
-  --row-hover:     #b8860b0a;
+
+  /* Primary — lighter greens for dark backgrounds */
+  --color-primary:       #639922;
+  --color-primary-dark:  #97C459;
+  --color-primary-light: #173404;
+  --color-primary-mid:   #3B6D11;
+
+  /* Page backgrounds */
+  --bg-page:        #1C1C1A;
+  --bg-card:        #2A2A27;
+  --bg-nav:         #222220;
+  --bg-input:       #1C1C1A;
+  --bg-section-hd:  #2A2A27;
+
+  /* Borders */
+  --border-main:    #3A3A37;
+  --border-input:   #3A3A37;
+  --border-focus:   #639922;
+
+  /* Text */
+  --text-primary:   #E8E4DA;
+  --text-secondary: #B4B2A9;
+  --text-muted:     #888780;
+  --text-faint:     #5F5E5A;
+
+  /* Accent */
+  --accent:         #639922;
+  --accent-bg:      #173404;
+  --accent-hover:   #27500A;
+
+  /* Semantic */
+  --danger:         #F09595;
+  --danger-bg:      #501313;
+  --success:        #639922;
+  --warning:        #EF9F27;
+  --row-hover:      #2A2A27;
+
+  /* Font variables are the same — no change needed */
+
+  /* Shadows — stronger for dark mode */
+  --shadow-card:    0 1px 3px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.2);
+  --shadow-nav:     0 1px 0 #3A3A37;
+  --shadow-dropdown:0 8px 24px rgba(0,0,0,0.4), 0 2px 6px rgba(0,0,0,0.3);
 }
 
-/* ── Parchment Theme ──────────────────────────────────── */
-[data-theme="parchment"] {
-  --bg-page:       #f0e8d8;
-  --bg-card:       rgba(255, 250, 240, 0.95);
-  --bg-input:      #fffdf8;
-  --bg-nav:        rgba(240, 232, 216, 0.98);
-  --bg-section-hd: rgba(139, 90, 20, 0.08);
-  --border-main:   #8b5a1444;
-  --border-input:  #8b5a1466;
-  --border-focus:  #8b5a14;
-  --text-primary:  #1a0f05;
-  --text-secondary:#4a3520;
-  --text-muted:    #6b5030;
-  --text-faint:    #a08060;
-  --accent:        #8b5a14;
-  --accent-hover:  #8b5a1444;
-  --accent-bg:     #8b5a1422;
-  --danger:        #cc2200;
-  --success:       #1a6b20;
-  --row-hover:     #8b5a140a;
+/* ── Base Styles ────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
-/* ── Base Styles ──────────────────────────────────────── */
-* { box-sizing: border-box; }
+html {
+  /* Smooth transition when switching themes */
+  /* Only transition colour-related properties — not layout */
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
 
 body {
   background-color: var(--bg-page);
   color:            var(--text-primary);
-  font-family:      'Georgia', 'Times New Roman', serif;
+  font-family:      var(--font-sans);
+  font-size:        14px;
+  line-height:      1.6;
   min-height:       100vh;
-  transition:       background-color 0.25s ease, color 0.25s ease;
+  margin:           0;
+  padding:          0;
+  -webkit-font-smoothing:  antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* ── Scrollbar ────────────────────────────────────────── */
-::-webkit-scrollbar       { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg-page); }
-::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+/* ── Typography Utilities ───────────────────────────────── */
+/* Use these classes directly in JSX for consistent text styling */
 
-/* ── Remove number input arrows — keeps stat boxes clean ── */
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+/* Page title — DM Serif, large */
+.text-display {
+  font-family: var(--font-serif);
+  font-size:   clamp(20px, 3vw, 28px);
+  color:       var(--text-primary);
+  line-height: 1.2;
+}
+
+/* Section headers — small caps style */
+.text-section-label {
+  font-family:     var(--font-sans);
+  font-size:       11px;
+  font-weight:     500;
+  text-transform:  uppercase;
+  letter-spacing:  0.08em;
+  color:           var(--text-muted);
+}
+
+/* ── Number Input — Remove Spinner Arrows ───────────────── */
 input[type='number']::-webkit-outer-spin-button,
 input[type='number']::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-input[type='number'] { -moz-appearance: textfield; }
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-page); }
+::-webkit-scrollbar-thumb { background: var(--border-main); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ── Focus Ring ─────────────────────────────────────────── */
+/* Consistent focus style for accessibility */
+:focus-visible {
+  outline:        2px solid var(--border-focus);
+  outline-offset: 2px;
+  border-radius:  4px;
+}
+
+/* ── Selection ──────────────────────────────────────────── */
+::selection {
+  background: var(--color-primary-light);
+  color:      var(--color-primary-dark);
+}

@@ -38,7 +38,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4"
-         style={{ background: 'radial-gradient(ellipse at center, #1a0f05 0%, #0f0b07 70%)' }}>
+         style={{ background: 'radial-gradient(ellipse at center, #1a0f05 0%, var(--bg-input) 70%)' }}>
 
       {/* Decorative border container */}
       <div className="w-full max-w-md">
@@ -49,10 +49,10 @@ export default function LoginPage() {
                className="mx-auto mb-4 object-contain"
                style={{ width: '72px', height: '72px' }} />
           <h1 className="text-3xl font-bold tracking-widest uppercase"
-              style={{ color: '#b8860b', fontFamily: 'Georgia, serif', letterSpacing: '0.2em' }}>
+              style={{ color: 'var(--accent)', fontFamily: 'Georgia, serif', letterSpacing: '0.2em' }}>
             The Catoolu
           </h1>
-          <p className="text-sm mt-2" style={{ color: '#6b7280' }}>
+          <p className="text-sm mt-2" style={{ color: 'var(--text-muted)' }}>
             Call of Cthulhu Character Manager
           </p>
         </div>
@@ -61,20 +61,20 @@ export default function LoginPage() {
         <div className="rounded-lg p-8 border"
              style={{
                background: 'rgba(26, 18, 8, 0.95)',
-               borderColor: '#b8860b',
+               borderColor: 'var(--accent)',
                boxShadow: '0 0 40px rgba(184, 134, 11, 0.15), inset 0 0 40px rgba(0,0,0,0.3)'
              }}>
 
           {/* Mode Toggle */}
           <div className="flex rounded-md mb-6 overflow-hidden border"
-               style={{ borderColor: '#b8860b33' }}>
+               style={{ borderColor: 'var(--accent)33' }}>
             <button
               type="button"
               onClick={() => { setMode('login'); setError(''); }}
               className="flex-1 py-2 text-sm font-medium transition-all duration-200"
               style={{
-                background: mode === 'login' ? '#b8860b' : 'transparent',
-                color: mode === 'login' ? '#0f0b07' : '#b8860b',
+                background: mode === 'login' ? 'var(--accent)' : 'transparent',
+                color: mode === 'login' ? 'var(--bg-input)' : 'var(--accent)',
               }}>
               Sign In
             </button>
@@ -83,8 +83,8 @@ export default function LoginPage() {
               onClick={() => { setMode('register'); setError(''); }}
               className="flex-1 py-2 text-sm font-medium transition-all duration-200"
               style={{
-                background: mode === 'register' ? '#b8860b' : 'transparent',
-                color: mode === 'register' ? '#0f0b07' : '#b8860b',
+                background: mode === 'register' ? 'var(--accent)' : 'transparent',
+                color: mode === 'register' ? 'var(--bg-input)' : 'var(--accent)',
               }}>
               Create Account
             </button>
@@ -97,7 +97,7 @@ export default function LoginPage() {
             {mode === 'register' && (
               <div>
                 <label className="block text-xs uppercase tracking-widest mb-1"
-                       style={{ color: '#b8860b' }}>
+                       style={{ color: 'var(--accent)' }}>
                   Username
                 </label>
                 <input
@@ -109,12 +109,12 @@ export default function LoginPage() {
                   placeholder="InvestigatorName"
                   className="w-full px-3 py-2 rounded text-sm outline-none transition-all"
                   style={{
-                    background: '#0f0b07',
-                    border: '1px solid #b8860b55',
-                    color: '#f5f0e8',
+                    background: 'var(--bg-input)',
+                    border: '1px solid var(--accent)55',
+                    color: 'var(--text-primary)',
                   }}
-                  onFocus={e => e.target.style.borderColor = '#b8860b'}
-                  onBlur={e  => e.target.style.borderColor = '#b8860b55'}
+                  onFocus={e => e.target.style.borderColor = 'var(--accent)'}
+                  onBlur={e  => e.target.style.borderColor = 'var(--accent)55'}
                 />
               </div>
             )}
@@ -122,7 +122,7 @@ export default function LoginPage() {
             {/* Email */}
             <div>
               <label className="block text-xs uppercase tracking-widest mb-1"
-                     style={{ color: '#b8860b' }}>
+                     style={{ color: 'var(--accent)' }}>
                 Email
               </label>
               <input
@@ -133,19 +133,19 @@ export default function LoginPage() {
                 placeholder="investigator@arkham.edu"
                 className="w-full px-3 py-2 rounded text-sm outline-none transition-all"
                 style={{
-                  background: '#0f0b07',
-                  border: '1px solid #b8860b55',
-                  color: '#f5f0e8',
+                  background: 'var(--bg-input)',
+                  border: '1px solid var(--accent)55',
+                  color: 'var(--text-primary)',
                 }}
-                onFocus={e => e.target.style.borderColor = '#b8860b'}
-                onBlur={e  => e.target.style.borderColor = '#b8860b55'}
+                onFocus={e => e.target.style.borderColor = 'var(--accent)'}
+                onBlur={e  => e.target.style.borderColor = 'var(--accent)55'}
               />
             </div>
 
             {/* Password */}
             <div>
               <label className="block text-xs uppercase tracking-widest mb-1"
-                     style={{ color: '#b8860b' }}>
+                     style={{ color: 'var(--accent)' }}>
                 Password
               </label>
               <input
@@ -157,12 +157,12 @@ export default function LoginPage() {
                 placeholder="••••••••"
                 className="w-full px-3 py-2 rounded text-sm outline-none transition-all"
                 style={{
-                  background: '#0f0b07',
-                  border: '1px solid #b8860b55',
-                  color: '#f5f0e8',
+                  background: 'var(--bg-input)',
+                  border: '1px solid var(--accent)55',
+                  color: 'var(--text-primary)',
                 }}
-                onFocus={e => e.target.style.borderColor = '#b8860b'}
-                onBlur={e  => e.target.style.borderColor = '#b8860b55'}
+                onFocus={e => e.target.style.borderColor = 'var(--accent)'}
+                onBlur={e  => e.target.style.borderColor = 'var(--accent)55'}
               />
             </div>
             {/* Add this right after the password input's closing </div> */}
@@ -180,7 +180,7 @@ export default function LoginPage() {
             {/* Error message */}
             {error && (
               <div className="text-sm px-3 py-2 rounded"
-                   style={{ background: '#8b1a1a22', color: '#ff6b6b', border: '1px solid #8b1a1a' }}>
+                   style={{ background: 'var(--danger)22', color: 'var(--danger)', border: '1px solid var(--danger)' }}>
                 ⚠ {error}
               </div>
             )}
@@ -191,8 +191,8 @@ export default function LoginPage() {
               disabled={loading}
               className="w-full py-3 rounded font-bold uppercase tracking-widest text-sm transition-all duration-200 mt-2"
               style={{
-                background: loading ? '#6b5000' : '#b8860b',
-                color: '#0f0b07',
+                background: loading ? '#6b5000' : 'var(--accent)',
+                color: 'var(--bg-input)',
                 cursor: loading ? 'not-allowed' : 'pointer',
               }}>
               {loading

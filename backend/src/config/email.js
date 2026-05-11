@@ -40,23 +40,23 @@ async function sendPasswordResetEmail(toEmail, resetToken, username) {
       <html>
       <body style="
         font-family: Georgia, serif;
-        background: #0f0b07;
-        color: #f5f0e8;
+        background: var(--bg-input);
+        color: var(--text-primary);
         padding: 40px 20px;
         margin: 0;
       ">
         <div style="
           max-width: 480px;
           margin: 0 auto;
-          background: #1a1208;
-          border: 1px solid #b8860b44;
+          background: var(--bg-card);
+          border: 1px solid var(--accent)44;
           border-radius: 8px;
           padding: 40px;
         ">
           <div style="text-align: center; margin-bottom: 32px;">
             <div style="font-size: 48px; margin-bottom: 8px;">🐙</div>
             <h1 style="
-              color: #b8860b;
+              color: var(--accent);
               font-size: 20px;
               letter-spacing: 0.2em;
               text-transform: uppercase;
@@ -64,21 +64,21 @@ async function sendPasswordResetEmail(toEmail, resetToken, username) {
             ">The Catoolu</h1>
           </div>
 
-          <p style="color: #f5f0e8; margin-bottom: 8px;">
+          <p style="color: var(--text-primary); margin-bottom: 8px;">
             Hello, <strong>${username}</strong>.
           </p>
-          <p style="color: #9ca3af; line-height: 1.6; margin-bottom: 32px;">
+          <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 32px;">
             A password reset was requested for your account.
             Click the button below to set a new password.
-            This link expires in <strong style="color: #f5f0e8;">1 hour</strong>.
+            This link expires in <strong style="color: var(--text-primary);">1 hour</strong>.
           </p>
 
           <div style="text-align: center; margin-bottom: 32px;">
             <a href="${resetUrl}"
                style="
                  display: inline-block;
-                 background: #b8860b;
-                 color: #0f0b07;
+                 background: var(--accent);
+                 color: var(--bg-input);
                  text-decoration: none;
                  padding: 14px 32px;
                  border-radius: 6px;
@@ -90,16 +90,16 @@ async function sendPasswordResetEmail(toEmail, resetToken, username) {
             </a>
           </div>
 
-          <p style="color: #6b7280; font-size: 12px; line-height: 1.6;">
+          <p style="color: var(--text-muted); font-size: 12px; line-height: 1.6;">
             If you did not request this reset, you can safely ignore this email.
             Your password will not change.
           </p>
 
-          <hr style="border: none; border-top: 1px solid #b8860b22; margin: 24px 0;" />
+          <hr style="border: none; border-top: 1px solid var(--accent)22; margin: 24px 0;" />
 
-          <p style="color: #3d3530; font-size: 11px; text-align: center;">
+          <p style="color: var(--text-faint); font-size: 11px; text-align: center;">
             If the button doesn't work, copy this link:<br/>
-            <span style="color: #b8860b; word-break: break-all;">${resetUrl}</span>
+            <span style="color: var(--accent); word-break: break-all;">${resetUrl}</span>
           </p>
         </div>
       </body>

@@ -55,7 +55,7 @@ export default function PortraitDisplay({ portrait, onUploadClick }) {
           <div className="absolute inset-0 flex items-center justify-center
                           opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                style={{ background: 'rgba(0,0,0,0.55)' }}>
-            <span className="text-xs font-medium" style={{ color: '#f5f0e8' }}>
+            <span className="text-xs font-medium" style={{ color: 'var(--text-primary)' }}>
               📷 Change
             </span>
           </div>
