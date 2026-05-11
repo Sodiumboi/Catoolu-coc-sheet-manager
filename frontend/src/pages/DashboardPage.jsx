@@ -101,7 +101,12 @@ export default function DashboardPage() {
   });
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--bg-page)' }}>
+    <div style={{
+      minHeight:     '100vh',
+      background:    'var(--bg-page)',
+      display:       'flex',
+      flexDirection: 'column',
+    }}>
 
       {/* ── Top Navigation Bar ── */}
       <NavBar
@@ -111,7 +116,12 @@ export default function DashboardPage() {
       />
 
       {/* ── Main Content ── */}
-      <main className="max-w-6xl mx-auto px-6 py-8">
+      <main style={{
+        maxWidth: '1200px',
+        margin:   '0 auto',
+        padding:  '32px 24px',
+        flex:     1,
+      }}>
 
         {/* Page header + search */}
         <div style={{ marginBottom: '24px' }}>

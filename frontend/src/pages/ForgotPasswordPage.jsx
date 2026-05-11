@@ -15,73 +15,107 @@ export default function ForgotPasswordPage() {
     setLoading(true);
     try {
       await apiClient.post('/auth/forgot-password', { email });
-      setSubmitted(true); // always show success (even if email not found — security)
+      setSubmitted(true);
     } catch (err) {
-      setError(err.response?.data?.error || 'Something went wrong. Please try again.');
+      setError(err.response?.data?.error || 'Something went wrong.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4"
-         style={{ background: 'var(--bg-page)' }}>
-      <div className="w-full max-w-md">
+    <div style={{
+      minHeight:      '100vh',
+      display:        'flex',
+      alignItems:     'center',
+      justifyContent: 'center',
+      padding:        '24px 16px',
+      background:     'var(--bg-page)',
+      fontFamily:     'var(--font-sans)',
+    }}>
+      <div style={{ width: '100%', maxWidth: '400px' }}>
 
         {/* Header */}
-        <div className="text-center mb-8">
+        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
           <img src={logo} alt="The Catoolu"
-               className="mx-auto mb-4 object-contain"
-               style={{ width: '72px', height: '72px' }} />
-          <h1 className="text-3xl font-bold tracking-widest uppercase"
-              style={{ color: 'var(--accent)', fontFamily: 'Georgia, serif', letterSpacing: '0.2em' }}>
+               style={{ display: 'block', margin: '0 auto 12px', width: '64px', height: '64px', objectFit: 'contain' }} />
+          <h1 style={{
+            fontFamily: 'var(--font-serif)',
+            fontSize:   '28px',
+            color:      'var(--color-primary-dark)',
+            margin:     0,
+          }}>
             The Catoolu
           </h1>
-          <p className="text-sm mt-2" style={{ color: 'var(--text-muted)' }}>
-            Call of Cthulhu Character Manager
-          </p>
         </div>
 
-        <div className="rounded-lg p-8 border"
-             style={{ background: 'var(--bg-card)', borderColor: 'var(--border-main)' }}>
-
+        <div style={{
+          background:   'var(--bg-card)',
+          border:       '1px solid var(--border-main)',
+          borderRadius: '16px',
+          boxShadow:    'var(--shadow-card)',
+          padding:      '28px',
+        }}>
           {submitted ? (
-            // ── Success state ──
-            <div className="text-center">
-              <div className="text-4xl mb-4">📬</div>
-              <h2 className="text-lg font-bold mb-3"
-                  style={{ color: 'var(--text-primary)', fontFamily: 'Georgia, serif' }}>
+            /* Success state */
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: '40px', marginBottom: '16px' }}>📬</div>
+              <h2 style={{
+                fontFamily: 'var(--font-serif)',
+                fontSize:   '20px',
+                color:      'var(--text-primary)',
+                margin:     '0 0 12px',
+              }}>
                 Check Your Inbox
               </h2>
-              <p className="text-sm mb-6" style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>
+              <p style={{
+                fontSize:   '13px',
+                color:      'var(--text-muted)',
+                lineHeight: '1.7',
+                margin:     '0 0 8px',
+              }}>
                 If <strong style={{ color: 'var(--text-primary)' }}>{email}</strong> is
-                registered, a reset link has been sent. Check your spam folder if it
-                doesn't appear within a few minutes.
+                registered, a reset link has been sent.
+                Check your spam folder if it doesn't appear within a few minutes.
               </p>
-              <p className="text-sm mb-4" style={{ color: 'var(--text-muted)' }}>
+              <p style={{ fontSize: '13px', color: 'var(--text-muted)', margin: '0 0 20px' }}>
                 The link expires in <strong style={{ color: 'var(--text-primary)' }}>1 hour</strong>.
               </p>
-              <Link to="/login"
-                    className="text-sm font-medium"
-                    style={{ color: 'var(--accent)' }}>
+              <Link to="/login" style={{ fontSize: '13px', color: 'var(--accent)', textDecoration: 'none' }}>
                 ← Back to Sign In
               </Link>
             </div>
           ) : (
-            // ── Form state ──
+            /* Form state */
             <>
-              <h2 className="text-lg font-bold mb-2"
-                  style={{ color: 'var(--text-primary)', fontFamily: 'Georgia, serif' }}>
+              <h2 style={{
+                fontFamily: 'var(--font-serif)',
+                fontSize:   '20px',
+                color:      'var(--text-primary)',
+                margin:     '0 0 8px',
+              }}>
                 Forgot Password
               </h2>
-              <p className="text-sm mb-6" style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>
-                Enter your email address and we'll send you a link to reset your password.
+              <p style={{
+                fontSize:   '13px',
+                color:      'var(--text-muted)',
+                lineHeight: '1.6',
+                margin:     '0 0 24px',
+              }}>
+                Enter your email and we'll send you a reset link.
               </p>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-xs uppercase tracking-widest mb-1"
-                         style={{ color: 'var(--accent)' }}>
+              <form onSubmit={handleSubmit}>
+                <div style={{ marginBottom: '16px' }}>
+                  <label style={{
+                    display:       'block',
+                    fontSize:      '11px',
+                    fontWeight:    '500',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.07em',
+                    color:         'var(--text-muted)',
+                    marginBottom:  '6px',
+                  }}>
                     Email Address
                   </label>
                   <input
@@ -90,11 +124,17 @@ export default function ForgotPasswordPage() {
                     onChange={e => setEmail(e.target.value)}
                     required
                     placeholder="investigator@arkham.edu"
-                    className="w-full px-3 py-2 rounded text-sm outline-none"
                     style={{
-                      background: 'var(--bg-input)',
-                      border:     '1px solid var(--border-input)',
-                      color:      'var(--text-primary)',
+                      width:        '100%',
+                      padding:      '9px 12px',
+                      borderRadius: '8px',
+                      border:       '1px solid var(--border-input)',
+                      background:   'var(--bg-input)',
+                      color:        'var(--text-primary)',
+                      fontFamily:   'var(--font-sans)',
+                      fontSize:     '14px',
+                      outline:      'none',
+                      boxSizing:    'border-box',
                     }}
                     onFocus={e => e.target.style.borderColor = 'var(--border-focus)'}
                     onBlur={e  => e.target.style.borderColor = 'var(--border-input)'}
@@ -102,8 +142,15 @@ export default function ForgotPasswordPage() {
                 </div>
 
                 {error && (
-                  <div className="text-sm px-3 py-2 rounded"
-                       style={{ background: 'var(--danger)22', color: 'var(--danger)', border: '1px solid var(--danger)44' }}>
+                  <div style={{
+                    background:   'var(--danger-bg)',
+                    border:       '1px solid var(--danger)',
+                    borderRadius: '8px',
+                    padding:      '10px 14px',
+                    marginBottom: '16px',
+                    fontSize:     '13px',
+                    color:        'var(--danger)',
+                  }}>
                     ⚠ {error}
                   </div>
                 )}
@@ -111,29 +158,32 @@ export default function ForgotPasswordPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 rounded font-bold uppercase tracking-widest text-sm"
                   style={{
-                    background: loading ? 'var(--text-muted)' : 'var(--accent)',
-                    color:      'var(--bg-page)',
-                    cursor:     loading ? 'not-allowed' : 'pointer',
-                  }}>
+                    width:        '100%',
+                    padding:      '11px',
+                    borderRadius: '10px',
+                    border:       'none',
+                    background:   loading ? 'var(--text-muted)' : 'var(--color-primary)',
+                    color:        '#ffffff',
+                    fontFamily:   'var(--font-sans)',
+                    fontSize:     '14px',
+                    fontWeight:   '500',
+                    cursor:       loading ? 'not-allowed' : 'pointer',
+                  }}
+                >
                   {loading ? 'Sending...' : 'Send Reset Link'}
                 </button>
               </form>
 
-              <p className="text-center text-sm mt-6" style={{ color: 'var(--text-muted)' }}>
+              <p style={{ textAlign: 'center', fontSize: '13px', color: 'var(--text-muted)', marginTop: '20px' }}>
                 Remember it?{' '}
-                <Link to="/login" style={{ color: 'var(--accent)' }}>
+                <Link to="/login" style={{ color: 'var(--accent)', textDecoration: 'none' }}>
                   Sign In
                 </Link>
               </p>
             </>
           )}
         </div>
-        {/* Footer */}
-           <p className="text-center text-xs mt-4" style={{ color: 'var(--text-faint)' }}>
-          Powered by Kon Tuen Claude and Resend — Built by someone, who rolled 1 on adv d20.
-        </p>
       </div>
     </div>
   );
