@@ -91,21 +91,28 @@ export default function CharacterCard({ character, onDelete, onOpen }) {
 
         {/* Footer */}
         <div
-          className="flex items-center justify-between pt-2 border-t"
-          style={{ borderColor: 'var(--border-main, var(--accent)22)' }}
+          style={{
+            display:        'flex',
+            alignItems:     'center',
+            justifyContent: 'space-between',
+            paddingTop:     '10px',
+            marginTop:      '8px',
+            borderTop:      '1px solid var(--border-main)',
+            gap:            '12px',
+          }}
         >
-          <span className="text-xs" style={{ color: 'var(--text-faint, var(--text-faint))' }}>
+          <span style={{
+            fontSize:   '12px',
+            color:      'var(--text-faint)',
+            flexShrink: 0,
+          }}>
             {lastUpdated}
           </span>
-          <div className="flex gap-2">
-            
-            {/* Delete — stopPropagation inside so card click doesn't fire */}
-            <ActionButton
-              label="Delete"
-              onClick={() => onDelete(id, name)}
-              color="#E24B4A"
-            />
-          </div>
+          <ActionButton
+            label="Delete"
+            onClick={() => onDelete(id, name)}
+            color="#E24B4A"
+          />
         </div>
       </div>
     </div>

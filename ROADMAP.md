@@ -16,6 +16,7 @@ As the platform grows, so do the horrors it contains.
 | Version | Codename | Entity | Meaning |
 |---|---|---|---|
 | v1.0 | *Azathoth* | The Blind Idiot God | The chaotic origin — the first thing that existed |
+| v1.1 | *Dagon* | The Half-Deep One | Familiar, but transformed — the bridge between worlds |
 | v1.5 | *Nyarlathotep* | The Crawling Chaos | The messenger — the one who connects things |
 | v2.0 | *Shub-Niggurath* | The Black Goat | Fertile and multiplying — many branches |
 | v2.5 | *Yog-Sothoth* | The Key and the Gate | Omniscient — sees all times and places |
@@ -45,23 +46,41 @@ The foundation. Built from zero web development experience to a fully containeri
 - [x] Editable subskill names
 - [x] Official CoC 7e weapon preset picker
 - [x] Add / delete weapons and possessions
-- [x] Session notes with rich text editor (bold, italic, lists, custom colours)
+- [x] Session notes with rich text editor
 - [x] Saveable colour swatches for notes
-- [x] Dark theme and Parchment theme toggle
+- [x] Dark and Parchment theme toggle
 - [x] Skill text size toggle (Small / Medium / Large)
 - [x] Dynamic portrait aspect ratio
-- [x] Click-to-open character cards
 - [x] Docker + Docker Compose containerisation
-- [x] Nginx reverse proxy with HTTPS
-- [x] Self-hosted on ZimaOS via DuckDNS
+- [x] Nginx reverse proxy with HTTPS via DuckDNS
+- [x] Self-hosted on ZimaOS
 
-### Tech Stack
-- **Frontend:** React 18, Vite, Tailwind CSS
-- **Backend:** Node.js, Express
-- **Database:** PostgreSQL 16 (JSONB character storage)
-- **Auth:** JWT, bcryptjs
-- **Email:** Nodemailer + Resend
-- **Deployment:** Docker, Nginx, ZimaOS, DuckDNS
+---
+
+## ✅ v1.1 — Dagon
+**Status: Released — May 2026**
+**"Familiar, but transformed. The bridge between worlds."**
+
+The UI transformation. A complete visual redesign establishing a proper corporate identity and design system.
+
+### Features
+- [x] **Design System** — CSS Custom Property token layer (colours, fonts, shadows)
+- [x] **DM Serif Display + DM Sans** — new typography pair across all pages
+- [x] **Catoolu Green CI** — new primary accent colour derived from the logo
+- [x] **Parchment light mode** — warm cream default replacing dark brown
+- [x] **Cool-gray dark mode** — proper neutral dark theme
+- [x] **Tab navigation bar** — Investigators · Keeper · Campaign · Inbox
+- [x] **Avatar dropdown** — circular avatar with initials and dropdown menu
+- [x] **In-place Preferences panel** — slide animation, theme + skill size controls
+- [x] **Investigator count badge** — live count on the Investigators tab
+- [x] **Shared NavBar component** — one component used by all pages
+- [x] **White elevated character cards** — modern card style with ghost buttons
+- [x] **Investigator search** — live filter by name and occupation
+- [x] **Login page redesign** — pill tabs, DM Serif, new CI throughout
+- [x] **Auth pages redesign** — Forgot Password and Reset Password match new CI
+- [x] **Profile page redesign** — side-by-side layout, portrait placeholder (v1.5)
+- [x] **Coming Soon pages** — Keeper, Campaign, Inbox with version badges
+- [x] **Shared Footer** — version, build credit, Lovecraft quote on every page
 
 ---
 
@@ -81,6 +100,7 @@ The social layer. The Catoolu becomes a shared space.
 - [ ] **Dice roller** — `/roll 1d100`, `/roll 2d6+3` in chat
 - [ ] **Skill rolls** — `/roll Firearms` rolls against the investigator's skill and shows CoC success level
 - [ ] **Public dice results** — all players see every roll in chat
+- [ ] **Profile photo upload** — complete the portrait placeholder from v1.1
 
 ### New Tech
 - Socket.io (WebSockets for real-time communication)
@@ -137,7 +157,7 @@ The full vision. The Catoolu as a proper lightweight CoC VTT.
 
 ### Planned Features
 - [ ] **Multiple campaigns** — archive, templates, shareable invite links
-- [ ] **Audio ambience** — Keeper streams ambient sound to all players (Rain, Ritual, Combat etc.)
+- [ ] **Audio ambience** — Keeper streams ambient sound to all players
 - [ ] **Character advancement** — post-session XP, skill improvement rolls, Keeper approval
 - [ ] **Full advancement audit trail** — how every investigator grew over a campaign
 - [ ] **Mobile-optimised UI** — full responsive redesign for phone play at the table
@@ -156,13 +176,14 @@ The full vision. The Catoolu as a proper lightweight CoC VTT.
 
 ```
 2026
- May  ████████████████  v1.0 Azathoth     ✅ Released
- Jul  ░░░░░░░░░░░░░░░░  v1.5 Nyarlathotep  🔜 Planned
+ May  ████████████████  v1.0 Azathoth       ✅ Released
+ May  ████████████████  v1.1 Dagon          ✅ Released
+ Jul  ░░░░░░░░░░░░░░░░  v1.5 Nyarlathotep   🔜 Planned
  Sep  ░░░░░░░░░░░░░░░░  v2.0 Shub-Niggurath 🔮 Planned
 
 2027
- Jan  ░░░░░░░░░░░░░░░░  v2.5 Yog-Sothoth   🔮 Planned
- May  ░░░░░░░░░░░░░░░░  v3.0 Cthulhu       🔮 Planned
+ Jan  ░░░░░░░░░░░░░░░░  v2.5 Yog-Sothoth    🔮 Planned
+ May  ░░░░░░░░░░░░░░░░  v3.0 Cthulhu        🔮 Planned
 ```
 
 ---
@@ -170,7 +191,8 @@ The full vision. The Catoolu as a proper lightweight CoC VTT.
 ## Contributing
 
 This is a personal project built for a CoC group of approximately 3 investigators.
-Feature requests from the players are accepted. Feature requests from the Ancient Ones are not.
+Feature requests from the players are accepted.
+Feature requests from the Ancient Ones are not.
 
 ---
 
