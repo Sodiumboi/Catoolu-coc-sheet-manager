@@ -29,10 +29,10 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    const isAuthRoute = error.config?.url?.includes('/auth/');
+    if (error.response?.status === 401 && !isAuthRoute) {
       localStorage.removeItem('coc_token');
       localStorage.removeItem('coc_user');
-      // Redirect to login without using React Router (works anywhere)
       window.location.href = '/login';
     }
     return Promise.reject(error);

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import apiClient from '../api/client';
+import logo from '../assets/vault-logo.png';
 
 export default function ResetPasswordPage() {
   const [searchParams]                = useSearchParams();
@@ -61,11 +62,20 @@ export default function ResetPasswordPage() {
       <div className="w-full max-w-md">
 
         <div className="text-center mb-8">
-          <div className="text-5xl mb-3">🐙</div>
-          <h1 className="text-2xl font-bold tracking-widest uppercase"
-              style={{ color: 'var(--accent)', fontFamily: 'Georgia, serif' }}>
+          <img src={logo} alt="The Catoolu"
+               style={{ width: '64px', height: '64px', objectFit: 'contain', margin: '0 auto 12px' }} />
+          <h1 style={{
+            fontFamily:    'var(--font-serif)',
+            fontSize:      '28px',
+            color:         'var(--color-primary-dark)',
+            letterSpacing: '0.05em',
+            margin:        '0 0 4px',
+          }}>
             The Catoolu
           </h1>
+          <p className="text-sm mt-2" style={{ color: 'var(--text-muted)' }}>
+            Call of Cthulhu Character Manager
+          </p>
         </div>
 
         <div className="rounded-lg p-8 border"
@@ -169,6 +179,10 @@ export default function ResetPasswordPage() {
             </>
           )}
         </div>
+        {/* Footer */}
+           <p className="text-center text-xs mt-4" style={{ color: 'var(--text-faint)' }}>
+          Powered by Kon Tuen Claude and Resend — Built by someone, who rolled 1 on adv d20.
+        </p>
       </div>
     </div>
   );

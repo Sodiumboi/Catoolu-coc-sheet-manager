@@ -22,12 +22,7 @@ function CharacterEditorWithKey() {
   );
 }
 
-const PreferencesPage = () => (
-  <div style={{ padding: '40px', fontFamily: 'var(--font-sans)', color: 'var(--text-primary)' }}>
-    <h1 style={{ fontFamily: 'var(--font-serif)' }}>Preferences</h1>
-    <p style={{ color: 'var(--text-muted)' }}>Coming in Phase 4.</p>
-  </div>
-);
+
 
 // ── Main App ───────────────────────────────────────────────
 export default function App() {
@@ -53,14 +48,7 @@ export default function App() {
             {/* Fallbacks */}
             <Route path="/"  element={<Navigate to="/dashboard" replace />} />
             <Route path="*"  element={<Navigate to="/dashboard" replace />} />
-            <Route
-              path="/preferences"
-              element={
-                <ProtectedRoute>
-                  <PreferencesPage />
-                </ProtectedRoute>
-              }
-            />
+            
             <Route
               path="/keeper"
               element={

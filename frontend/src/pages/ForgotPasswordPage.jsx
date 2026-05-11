@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import apiClient from '../api/client';
+import logo from '../assets/vault-logo.png';
 
 export default function ForgotPasswordPage() {
   const [email,     setEmail]     = useState('');
@@ -29,11 +30,16 @@ export default function ForgotPasswordPage() {
 
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="text-5xl mb-3">🐙</div>
-          <h1 className="text-2xl font-bold tracking-widest uppercase"
-              style={{ color: 'var(--accent)', fontFamily: 'Georgia, serif' }}>
+          <img src={logo} alt="The Catoolu"
+               className="mx-auto mb-4 object-contain"
+               style={{ width: '72px', height: '72px' }} />
+          <h1 className="text-3xl font-bold tracking-widest uppercase"
+              style={{ color: 'var(--accent)', fontFamily: 'Georgia, serif', letterSpacing: '0.2em' }}>
             The Catoolu
           </h1>
+          <p className="text-sm mt-2" style={{ color: 'var(--text-muted)' }}>
+            Call of Cthulhu Character Manager
+          </p>
         </div>
 
         <div className="rounded-lg p-8 border"
@@ -124,6 +130,10 @@ export default function ForgotPasswordPage() {
             </>
           )}
         </div>
+        {/* Footer */}
+           <p className="text-center text-xs mt-4" style={{ color: 'var(--text-faint)' }}>
+          Powered by Kon Tuen Claude and Resend — Built by someone, who rolled 1 on adv d20.
+        </p>
       </div>
     </div>
   );

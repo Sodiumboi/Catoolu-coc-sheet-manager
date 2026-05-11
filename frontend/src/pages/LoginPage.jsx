@@ -38,7 +38,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4"
-         style={{ background: 'radial-gradient(ellipse at center, #1a0f05 0%, var(--bg-input) 70%)' }}>
+         style={{ background: 'var(--bg-page)' }}>
 
       {/* Decorative border container */}
       <div className="w-full max-w-md">
@@ -60,9 +60,9 @@ export default function LoginPage() {
         {/* Card */}
         <div className="rounded-lg p-8 border"
              style={{
-               background: 'rgba(26, 18, 8, 0.95)',
-               borderColor: 'var(--accent)',
-               boxShadow: '0 0 40px rgba(184, 134, 11, 0.15), inset 0 0 40px rgba(0,0,0,0.3)'
+               background:  'var(--bg-card)',
+               borderColor: 'var(--border-main)',
+               boxShadow:   'var(--shadow-dropdown)',
              }}>
 
           {/* Mode Toggle */}
@@ -203,7 +203,7 @@ export default function LoginPage() {
         </div>
 
         {/* Footer */}
-        <p className="text-center text-xs mt-4" style={{ color: 'var(--text-faint)' }}>
+           <p className="text-center text-xs mt-4" style={{ color: 'var(--text-faint)' }}>
           Powered by Kon Tuen Claude and Resend — Built by someone, who rolled 1 on adv d20.
         </p>
       </div>

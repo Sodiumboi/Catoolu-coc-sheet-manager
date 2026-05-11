@@ -4,7 +4,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import apiClient from '../api/client';
 import SkillGroup from '../components/SkillGroup';
 import { WEAPON_PRESETS, WEAPON_CATEGORIES } from '../utils/weaponPresets';
-import { useTheme } from '../context/ThemeContext';
 import PortraitDisplay from '../components/PortraitDisplay';
 import StatInput from '../components/StatInput';
 import WeaponRow from '../components/WeaponRow';
@@ -278,20 +277,17 @@ export default function CharacterEditorPage() {
   const [presetSearch,    setPresetSearch]    = useState('');
 
   // ★ NEW — ref for hidden portrait file input
-  const { theme, toggleTheme, skillSize, setSkillSize } = useTheme();
   const portraitInputRef = useRef(null);
 
   // ── Load character ───────────────────────────────────────
   useEffect(() => {
-    // Reset ALL state when the character ID changes
-    // This prevents the old character's data from bleeding into the new render
-    setCurrentId(id);
-    setSheet(null);
-    setError('');
-    setLoading(true);
-    setSaved(false);
-
     const fetch = async () => {
+      // Reset ALL state when the character ID changes
+      setCurrentId(id);
+      setSheet(null);
+      setError('');
+      setLoading(true);
+      setSaved(false);
       try {
         const res = await apiClient.get(`/characters/${id}`);
         const data = res.data.character.sheet_data;

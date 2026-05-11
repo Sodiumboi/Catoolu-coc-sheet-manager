@@ -19,7 +19,8 @@ export default function NavBar({ activeTab = 'investigators', onImport, investig
   const navigate                  = useNavigate();
   const location                  = useLocation();
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [tooltip,      setTooltip]      = useState(null); // { id, label }
+  const [tooltip,      setTooltip]      = useState(null);
+  const [panel,        setPanel]        = useState('main'); // 'main' | 'preferences'
   const dropdownRef                     = useRef(null);
   const fileInputRef                    = useRef(null);
 
@@ -28,6 +29,7 @@ export default function NavBar({ activeTab = 'investigators', onImport, investig
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setDropdownOpen(false);
+        setPanel('main'); // ← reset to main when closed
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -37,6 +39,7 @@ export default function NavBar({ activeTab = 'investigators', onImport, investig
   // ── Close dropdown on route change ──────────────────────
   useEffect(() => {
     setDropdownOpen(false);
+    setPanel('main'); // ← reset panel on navigation too
   }, [location.pathname]);
 
   // ── Handlers ─────────────────────────────────────────────
@@ -296,81 +299,50 @@ export default function NavBar({ activeTab = 'investigators', onImport, investig
             </button>
 
             {/* Dropdown */}
-            {dropdownOpen && (
-              <div style={{
-                position:     'absolute',
-                top:          'calc(100% + 8px)',
-                right:        0,
-                width:        '180px',
-                background:   'var(--bg-card)',
-                border:       '1px solid var(--border-main)',
-                borderRadius: '12px',
-                boxShadow:    'var(--shadow-dropdown)',
-                overflow:     'hidden',
-                zIndex:       100,
-              }}>
-
-                {/* Username only — no email */}
+            {/* ── Dropdown ─────────────────────────── */}
+              {dropdownOpen && (
                 <div style={{
-                  padding:      '12px 16px 10px',
-                  borderBottom: '1px solid var(--border-main)',
+                  position:   'absolute',
+                  top:        'calc(100% + 8px)',
+                  right:      0,
+                  width:      panel === 'preferences' ? '240px' : '200px',
+                  background: 'var(--bg-card)',
+                  border:     '1px solid var(--border-main)',
+                  borderRadius:'12px',
+                  boxShadow:  'var(--shadow-dropdown)',
+                  overflow:   'hidden',
+                  zIndex:     100,
+                  transition: 'width 0.2s ease',
                 }}>
-                  <div style={{
-                    fontFamily: 'var(--font-serif)',
-                    fontSize:   '15px',
-                    color:      'var(--text-primary)',
-                  }}>
-                    {user?.username}
-                  </div>
-                </div>
 
-                <div style={{ padding: '6px' }}>
-                  <DropdownItem
-                    label="Profile"
-                    icon="👤"
-                    onClick={() => { navigate('/profile'); setDropdownOpen(false); }}
-                  />
-                  <DropdownItem
-                    label="Preferences"
-                    icon="⚙️"
-                    onClick={() => { navigate('/preferences'); setDropdownOpen(false); }}
-                  />
+                  {/* Panel content — key triggers remount + animation */}
                   <div
-                    onClick={toggleTheme}
+                    key={panel}
                     style={{
-                      display:       'flex',
-                      alignItems:    'center',
-                      gap:           '8px',
-                      padding:       '8px 10px',
-                      borderRadius:  '8px',
-                      cursor:        'pointer',
-                      fontFamily:    'var(--font-sans)',
-                      fontSize:      '13px',
-                      color:         'var(--text-secondary)',
-                      transition:    'background 0.1s',
+                      animation: panel === 'preferences'
+                        ? 'slideInFromRight 0.18s ease'
+                        : 'slideInFromLeft 0.18s ease',
                     }}
-                    onMouseEnter={e => e.currentTarget.style.background = 'var(--row-hover)'}
-                    onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                   >
-                    <span>{theme === 'dark' ? '☀️' : '🌑'}</span>
-                    {theme === 'dark' ? 'Light mode' : 'Dark mode'}
+                    {panel === 'main'
+                      ? <MainMenuPanel
+                          user={user}
+                          theme={theme}
+                          toggleTheme={toggleTheme}
+                          navigate={navigate}
+                          setDropdownOpen={setDropdownOpen}
+                          setPanel={setPanel}
+                          handleLogout={handleLogout}
+                        />
+                      : <PreferencesPanel
+                          theme={theme}
+                          toggleTheme={toggleTheme}
+                          setPanel={setPanel}
+                        />
+                    }
                   </div>
-
-                  <div style={{
-                    height:     '1px',
-                    background: 'var(--border-main)',
-                    margin:     '4px 0',
-                  }} />
-
-                  <DropdownItem
-                    label="Sign Out"
-                    icon="→"
-                    onClick={handleLogout}
-                    danger
-                  />
                 </div>
-              </div>
-            )}
+              )}
           </div>
         </div>
       </div>
@@ -379,25 +351,25 @@ export default function NavBar({ activeTab = 'investigators', onImport, investig
 }
 
 // ── Dropdown menu item ─────────────────────────────────────
-function DropdownItem({ label, icon, onClick, danger }) {
+function DropdownItem({ label, icon, onClick, danger, chevron }) {
   return (
     <button
       onClick={onClick}
       style={{
-        display:    'flex',
-        alignItems: 'center',
-        gap:        '8px',
-        width:      '100%',
-        padding:    '8px 10px',
-        borderRadius:'8px',
-        background: 'transparent',
-        border:     'none',
-        cursor:     'pointer',
-        fontFamily: 'var(--font-sans)',
-        fontSize:   '13px',
-        color:      danger ? 'var(--danger)' : 'var(--text-secondary)',
-        textAlign:  'left',
-        transition: 'background 0.1s ease, color 0.1s ease',
+        display:       'flex',
+        alignItems:    'center',
+        gap:           '8px',
+        width:         '100%',
+        padding:       '8px 10px',
+        borderRadius:  '8px',
+        background:    'transparent',
+        border:        'none',
+        cursor:        'pointer',
+        fontFamily:    'var(--font-sans)',
+        fontSize:      '13px',
+        color:         danger ? 'var(--danger)' : 'var(--text-secondary)',
+        textAlign:     'left',
+        transition:    'background 0.1s ease, color 0.1s ease',
       }}
       onMouseEnter={e => {
         e.currentTarget.style.background = danger ? 'var(--danger-bg)' : 'var(--row-hover)';
@@ -405,11 +377,295 @@ function DropdownItem({ label, icon, onClick, danger }) {
       }}
       onMouseLeave={e => {
         e.currentTarget.style.background = 'transparent';
-        e.currentTarget.style.color      = danger ? 'var(--danger)' : 'var(--text-secondary)';
+        e.currentTarget.style.color = danger ? 'var(--danger)' : 'var(--text-secondary)';
       }}
     >
       <span style={{ fontSize: '14px' }}>{icon}</span>
-      {label}
+      <span style={{ flex: 1 }}>{label}</span>
+      {chevron && (
+        <span style={{
+          fontSize:  '14px',
+          color:     'var(--text-faint)',
+          lineHeight: 1,
+        }}>
+          ›
+        </span>
+      )}
     </button>
+  );
+}
+
+// ── Main menu panel ────────────────────────────────────────
+function MainMenuPanel({
+  user, theme, toggleTheme, navigate,
+  setDropdownOpen, setPanel, handleLogout
+}) {
+  return (
+    <>
+      {/* Username header */}
+      <div style={{
+        padding:      '12px 16px 10px',
+        borderBottom: '1px solid var(--border-main)',
+      }}>
+        <div style={{
+          fontFamily: 'var(--font-serif)',
+          fontSize:   '15px',
+          color:      'var(--text-primary)',
+        }}>
+          {user?.username}
+        </div>
+      </div>
+
+      {/* Menu items */}
+      <div style={{ padding: '6px' }}>
+        <DropdownItem
+          label="Profile"
+          icon="👤"
+          onClick={() => { navigate('/profile'); setDropdownOpen(false); }}
+        />
+
+        {/* Preferences — navigates to prefs panel */}
+        <DropdownItem
+          label="Preferences"
+          icon="⚙️"
+          onClick={() => setPanel('preferences')}
+          chevron
+        />
+
+        {/* Theme quick-toggle */}
+        <div
+          onClick={toggleTheme}
+          style={{
+            display:    'flex',
+            alignItems: 'center',
+            gap:        '8px',
+            padding:    '8px 10px',
+            borderRadius:'8px',
+            cursor:     'pointer',
+            fontFamily: 'var(--font-sans)',
+            fontSize:   '13px',
+            color:      'var(--text-secondary)',
+            transition: 'background 0.1s',
+          }}
+          onMouseEnter={e => e.currentTarget.style.background = 'var(--row-hover)'}
+          onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+        >
+          <span>{theme === 'dark' ? '☀️' : '🌑'}</span>
+          {theme === 'dark' ? 'Light mode' : 'Dark mode'}
+        </div>
+
+        <div style={{ height: '1px', background: 'var(--border-main)', margin: '4px 0' }} />
+
+        <DropdownItem
+          label="Sign Out"
+          icon="→"
+          onClick={handleLogout}
+          danger
+        />
+      </div>
+    </>
+  );
+}
+
+// ── Preferences panel ──────────────────────────────────────
+function PreferencesPanel({ theme, toggleTheme, setPanel }) {
+  const { skillSize, setSkillSize } = useTheme();
+  const [savedMsg, setSavedMsg]     = useState('');
+
+  // Flash "Saved" confirmation when a setting changes
+  const applySetting = (fn) => {
+    fn();
+    setSavedMsg('✓ Saved');
+    setTimeout(() => setSavedMsg(''), 1500);
+  };
+
+  return (
+    <>
+      {/* Header with back button */}
+      <div style={{
+        padding:      '10px 12px',
+        borderBottom: '1px solid var(--border-main)',
+        display:      'flex',
+        alignItems:   'center',
+        justifyContent:'space-between',
+      }}>
+        <button
+          onClick={() => setPanel('main')}
+          style={{
+            display:    'flex',
+            alignItems: 'center',
+            gap:        '4px',
+            background: 'none',
+            border:     'none',
+            cursor:     'pointer',
+            fontFamily: 'var(--font-sans)',
+            fontSize:   '13px',
+            color:      'var(--text-secondary)',
+            padding:    '2px 6px',
+            borderRadius:'6px',
+            transition: 'all 0.1s',
+          }}
+          onMouseEnter={e => {
+            e.currentTarget.style.background = 'var(--row-hover)';
+            e.currentTarget.style.color      = 'var(--text-primary)';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.background = 'transparent';
+            e.currentTarget.style.color      = 'var(--text-secondary)';
+          }}
+        >
+          ← Back
+        </button>
+
+        <span style={{
+          fontFamily: 'var(--font-sans)',
+          fontSize:   '12px',
+          fontWeight: '500',
+          color:      'var(--text-primary)',
+        }}>
+          Preferences
+        </span>
+
+        {/* Saved confirmation flash */}
+        <span style={{
+          fontFamily: 'var(--font-sans)',
+          fontSize:   '11px',
+          color:      'var(--success)',
+          opacity:    savedMsg ? 1 : 0,
+          transition: 'opacity 0.2s ease',
+          minWidth:   '48px',
+          textAlign:  'right',
+        }}>
+          {savedMsg}
+        </span>
+      </div>
+
+      {/* Settings */}
+      <div style={{ padding: '8px 12px 12px' }}>
+
+        {/* ── Theme ── */}
+        <div style={{ marginBottom: '16px' }}>
+          <div style={{
+            fontFamily:    'var(--font-sans)',
+            fontSize:      '11px',
+            fontWeight:    '500',
+            textTransform: 'uppercase',
+            letterSpacing: '0.07em',
+            color:         'var(--text-muted)',
+            marginBottom:  '8px',
+          }}>
+            Theme
+          </div>
+
+          <div style={{
+            display:       'flex',
+            gap:           '6px',
+          }}>
+            {[
+              { value: 'light', label: '☀️ Light' },
+              { value: 'dark',  label: '🌑 Dark'  },
+            ].map(opt => {
+              const isActive = theme === opt.value;
+              return (
+                <button
+                  key={opt.value}
+                  onClick={() => applySetting(toggleTheme)}
+                  style={{
+                    flex:         1,
+                    padding:      '6px 8px',
+                    borderRadius: '8px',
+                    border:       isActive
+                      ? '1.5px solid var(--color-primary)'
+                      : '1.5px solid var(--border-main)',
+                    background:   isActive
+                      ? 'var(--accent-bg)'
+                      : 'transparent',
+                    color:        isActive
+                      ? 'var(--color-primary)'
+                      : 'var(--text-secondary)',
+                    fontFamily:   'var(--font-sans)',
+                    fontSize:     '12px',
+                    fontWeight:   isActive ? '500' : '400',
+                    cursor:       isActive ? 'default' : 'pointer',
+                    transition:   'all 0.15s ease',
+                    whiteSpace:   'nowrap',
+                  }}
+                >
+                  {opt.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* ── Skill Text Size ── */}
+        <div style={{ marginBottom: '16px' }}>
+          <div style={{
+            fontFamily:    'var(--font-sans)',
+            fontSize:      '11px',
+            fontWeight:    '500',
+            textTransform: 'uppercase',
+            letterSpacing: '0.07em',
+            color:         'var(--text-muted)',
+            marginBottom:  '8px',
+          }}>
+            Skill Text Size
+          </div>
+
+          <div style={{
+            display:       'flex',
+            border:        '1.5px solid var(--border-main)',
+            borderRadius:  '8px',
+            overflow:      'hidden',
+          }}>
+            {[
+              { value: 'sm',   label: 'S', title: 'Small'  },
+              { value: 'base', label: 'M', title: 'Medium' },
+              { value: 'lg',   label: 'L', title: 'Large'  },
+            ].map((opt, i) => {
+              const isActive = skillSize === opt.value;
+              return (
+                <button
+                  key={opt.value}
+                  title={opt.title}
+                  onClick={() => applySetting(() => setSkillSize(opt.value))}
+                  style={{
+                    flex:       1,
+                    padding:    '6px 0',
+                    border:     'none',
+                    borderLeft: i > 0 ? '1px solid var(--border-main)' : 'none',
+                    background: isActive ? 'var(--accent)' : 'transparent',
+                    color:      isActive ? '#ffffff'       : 'var(--text-secondary)',
+                    fontFamily: 'var(--font-sans)',
+                    fontSize:   i === 0 ? '11px' : i === 1 ? '13px' : '15px',
+                    fontWeight: isActive ? '500' : '400',
+                    cursor:     isActive ? 'default' : 'pointer',
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  {opt.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* ── Coming soon ── */}
+        <div style={{
+          borderTop:  '1px solid var(--border-main)',
+          paddingTop: '10px',
+        }}>
+          <div style={{
+            fontFamily: 'var(--font-sans)',
+            fontSize:   '11px',
+            color:      'var(--text-faint)',
+            fontStyle:  'italic',
+            textAlign:  'center',
+          }}>
+            More settings coming in v1.5
+          </div>
+        </div>
+      </div>
+    </>
   );
 }

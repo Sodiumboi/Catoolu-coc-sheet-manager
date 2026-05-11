@@ -187,3 +187,14 @@ input[type='number'] {
   background: var(--color-primary-light);
   color:      var(--color-primary-dark);
 }
+
+/* ── Dropdown panel slide animations ───────────────────── */
+@keyframes slideInFromRight {
+  from { transform: translateX(16px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+@keyframes slideInFromLeft {
+  from { transform: translateX(-16px); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
