@@ -241,11 +241,10 @@ This project is not affiliated with or endorsed by Chaosium Inc.
 
 ## 🙏 Credits
 
-Built by **Someone at Saltlakes** with an unreasonable amount of help from **Claude** (Anthropic) —
+Built by **Someone at Saltlakes** with an unreasonable amount of help from **Claude** —
 who patiently explained every concept from scratch, debugged every error,
 and never once failed a Sanity roll despite the horrors encountered along the way.
 
-Powered by **Resend** for transactional email.
 
 > *This project began with zero web development experience and ended with a fully containerised,
 > self-hosted full-stack application. The dice were kind.*
